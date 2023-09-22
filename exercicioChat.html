@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Exercicio aula Chat</title>
+</head>
+
+<body>
+  <div id="principal">
+    <div class="chat-header">
+      <header>
+        <h1>Atendimento Online</h1>
+      </header>
+    </div>
+    <div class="chat-container">
+      <div class="chat-messages">
+        <div class="message atendente-message">Atendente diz:<br>Início do atendimento online.</div>
+        <div class="message atendente-message">Atendente diz:<br>Blablabla.</div>
+      </div>
+      <div class="input-container">
+        <input id="userInput" class="input-field" type="text" placeholder="Digite sua mensagem...">
+        <button id="submitButton" class="send-button">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const userInput = document.getElementById("userInput");
+      const submitButton = document.getElementById("submitButton");
+      const chatMessages = document.querySelector(".chat-messages");
+
+      submitButton.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const userMessage = userInput.value.trim();
+
+        if (userMessage !== "") {
+          const userMessageElement = document.createElement("div");
+          userMessageElement.className = "message user-message";
+          userMessageElement.innerHTML = "Você diz:<br>" + userMessage;
+
+          chatMessages.appendChild(userMessageElement);
+
+          userInput.value = "";
+
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          
+          //Resposta do atendente mau humorado
+          setTimeout(function () {
+            const atendenteMessageElement = document.createElement("div");
+            atendenteMessageElement.className = "message atendente-message";
+            atendenteMessageElement.innerHTML = "Atendente diz:<br>Oi bocó, fala ai";
+
+            chatMessages.appendChild(atendenteMessageElement);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }, 1000); // Resposta após 1 segundo
+        }
+      });
+
+      userInput.addEventListener("keyup", function (e) {
+        if (e.key === "Enter") {
+          submitButton.click();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
